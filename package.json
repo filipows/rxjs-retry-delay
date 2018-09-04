@@ -1,0 +1,34 @@
+{
+  "name": "rxjs-retry-delay",
+  "version": "0.0.1",
+  "description": "RxJS retry operator with delay and max attempts strategy",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filipows/rxjs-retry-delay.git"
+  },
+  "keywords": [
+    "rxjs",
+    "operator",
+    "retry",
+    "delay",
+    "strategy"
+  ],
+  "author": "Chris Filipowski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filipows/rxjs-retry-delay/issues"
+  },
+  "homepage": "https://github.com/filipows/rxjs-retry-delay#readme",
+  "dependencies": {
+    "rxjs": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.8.3"
+  }
+}

@@ -1,0 +1,1 @@
+export { IRetryStratetyConfig, retryWithDelay } from './retry-delay.operator'
