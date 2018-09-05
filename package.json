@@ -5,8 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "test": "jest",
+    "test:watch": "npm run test -- --watchAll",
     "build": "tsc",
-    "prepublish": "npm run build"
+    "prepublish": "npm test && npm run build",
+    "release": "np"
   },
   "repository": {
     "type": "git",
@@ -26,10 +29,24 @@
   },
   "homepage": "https://github.com/filipows/rxjs-retry-delay#readme",
   "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "jest": "^23.5.0",
+    "np": "^3.0.4",
     "rxjs": "^6.0.0",
+    "ts-jest": "^23.1.4",
     "typescript": "^2.8.3"
   },
   "peerDependencies": {
     "rxjs": "^6.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "(\\.|/)(test)\\.(ts)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"    
+    ]
   }
 }
