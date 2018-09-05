@@ -57,6 +57,15 @@ function getUserById(id) {
 ```
 In example above, when response status is `500` it will throw error immediately.
 
+## Running the tests
+
+```
+npm test
+```
+or
+```
+npm run test:watch
+```
 
 ## Authors
 
