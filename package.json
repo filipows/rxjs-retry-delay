@@ -1,6 +1,6 @@
 {
   "name": "rxjs-retry-delay",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "RxJS retry operator with delay and max attempts strategy",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,10 +25,11 @@
     "url": "https://github.com/filipows/rxjs-retry-delay/issues"
   },
   "homepage": "https://github.com/filipows/rxjs-retry-delay#readme",
-  "dependencies": {
-    "rxjs": "^6.0.0"
-  },
   "devDependencies": {
+    "rxjs": "^6.0.0",
     "typescript": "^2.8.3"
+  },
+  "peerDependencies": {
+    "rxjs": "^6.0.0"
   }
 }
