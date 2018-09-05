@@ -1,7 +1,7 @@
 {
   "name": "rxjs-retry-delay",
   "version": "0.0.2",
-  "description": "RxJS retry operator with delay and max attempts strategy",
+  "description": "RxJS retry pipeable operator with delay and max attempts strategy for RxJS >= 6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
