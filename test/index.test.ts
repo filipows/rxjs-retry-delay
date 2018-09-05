@@ -1,3 +1,7 @@
+
+// Testing RxJS Code with Marble Diagrams:
+// https://github.com/ReactiveX/rxjs/blob/master/doc/marble-testing.md
+
 import { TestScheduler } from "rxjs/testing";
 import { retryWithDelay } from "../src";
 
