@@ -29,12 +29,12 @@
   },
   "homepage": "https://github.com/filipows/rxjs-retry-delay#readme",
   "devDependencies": {
-    "@types/jest": "^23.3.1",
-    "jest": "^23.5.0",
+    "@types/jest": "^24.0.11",
+    "jest": "^24.5.0",
     "np": "^3.0.4",
-    "rxjs": "^6.0.0",
-    "ts-jest": "^23.1.4",
-    "typescript": "^2.8.3"
+    "rxjs": "^6.4.0",
+    "ts-jest": "^24.0.0",
+    "typescript": "^3.3.4000"
   },
   "peerDependencies": {
     "rxjs": "^6.0.0"
@@ -46,7 +46,7 @@
     "testRegex": "(\\.|/)(test)\\.(ts)$",
     "moduleFileExtensions": [
       "ts",
-      "js"    
+      "js"
     ]
   }
 }
