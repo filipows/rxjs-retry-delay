@@ -1,5 +1,5 @@
 import { Observable, throwError, timer } from 'rxjs';
-import { finalize, mergeMap, retryWhen } from 'rxjs/operators';
+import { finalize, mergeMap as switchMap, retryWhen, tap } from 'rxjs/operators';
 
 export interface IRetryStratetyConfig {
   /**
@@ -18,31 +18,45 @@ export interface IRetryStratetyConfig {
    * List of HTTP codes to be excluded from retrying.
    */
   excludedStatusCodes?: number[];
+
+  /**
+   * If true, retry count is being resetted after every successful emission (i.e. successful reconection to the server).
+   *
+   * Default: false
+   */
+  resetRetryCountOnEmission?: boolean;
 }
 
-const genericRetryStrategy = ({
+export const retryWithDelay = ({
   delay = 1000,
   maxRetryAttempts = 3,
   scalingFactor = 1,
-  excludedStatusCodes = []
-}: IRetryStratetyConfig = {}) => (attempts: Observable<any>) => {
-  return attempts.pipe(
-    mergeMap((error, i) => {
-      const retryAttempt = i + 1;
-      // if maximum number of retries have been met
-      // or response is a status code we don't wish to retry, throw error
-      if (retryAttempt > maxRetryAttempts || excludedStatusCodes.find((e) => e === error.status)) {
-        return throwError(error);
-      }
-      const tryAfter = delay * scalingFactor ** (retryAttempt - 1);
+  excludedStatusCodes = [],
+  resetRetryCountOnEmission = false
+}: IRetryStratetyConfig) => <T>(source: Observable<T>) => {
+  let retryAttempts = 0;
+  return source.pipe(
+    retryWhen((attempts: Observable<any>) => {
+      return attempts.pipe(
+        switchMap((error) => {
+          // if maximum number of retries have been met
+          // or response is a status code we don't wish to retry, throw error
+          if (++retryAttempts > maxRetryAttempts || excludedStatusCodes.find((e) => e === error.status)) {
+            return throwError(error);
+          }
+          const tryAfter = delay * scalingFactor ** (retryAttempts - 1);
 
-      console.log(`Attempt ${retryAttempt}: retrying in ${tryAfter}ms`);
-      // retry after 1s, 2s, etc...
-      return timer(tryAfter);
+          console.log(`Attempt ${retryAttempts}: retrying in ${tryAfter}ms`);
+          // retry after 1s, 2s, etc...
+          return timer(tryAfter);
+        }),
+        finalize(() => console.log('Done with retrying.'))
+      );
     }),
-    finalize(() => console.log('Done with retrying.'))
+    tap(() => {
+      if (resetRetryCountOnEmission) {
+        retryAttempts = 0;
+      }
+    })
   );
 };
-
-export const retryWithDelay = (config: IRetryStratetyConfig = {}) => <T>(source: Observable<T>) =>
-  source.pipe(retryWhen(genericRetryStrategy(config)));
